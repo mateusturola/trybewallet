@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { userLoginAct } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -9,6 +13,12 @@ class Login extends React.Component {
       invalidFields: true,
     };
   }
+
+  onSubmitForm = (email) => {
+    const { history, userLogin } = this.props;
+    userLogin(email);
+    history.push('/carteira');
+  };
 
   handleInput = ({ target: { name, value } }) => {
     this.setState({
@@ -21,9 +31,9 @@ class Login extends React.Component {
     const { email, password } = this.state;
 
     const emailRegex = /\S+@\S+\.\S+/;
-    const FIVE = 5;
+    const FOUR = 4;
 
-    if (emailRegex.test(email) && password.length > FIVE) {
+    if (emailRegex.test(email) && password.length > FOUR) {
       this.setState((state) => ({ ...state, invalidFields: false }));
     } else {
       this.setState((state) => ({ ...state, invalidFields: true }));
@@ -34,6 +44,7 @@ class Login extends React.Component {
     const {
       state: { password, email, invalidFields },
       handleInput,
+      onSubmitForm,
     } = this;
     return (
       <div className="lgn-form">
@@ -55,7 +66,11 @@ class Login extends React.Component {
           onChange={ handleInput }
           data-testid="password-input"
         />
-        <button type="button" disabled={ invalidFields }>
+        <button
+          type="button"
+          disabled={ invalidFields }
+          onClick={ () => onSubmitForm(email) }
+        >
           Entrar
         </button>
       </div>
@@ -63,4 +78,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  userLogin: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  userLogin: (state) => dispatch(userLoginAct(state)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
