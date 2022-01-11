@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addExpense, madeExpenseActThunk, sumExpense } from '../actions';
 
 class ExpenseForm extends Component {
   constructor() {
@@ -14,6 +16,31 @@ class ExpenseForm extends Component {
     };
   }
 
+  madeExpense = async () => {
+    const {
+      state: { value, description, currency, method, tag },
+      props: { expenses, sumExpense, addExpense, getExchangeRates, valueExpense },
+    } = this;
+
+    let idGenerate = 0;
+    if (expenses > 0) idGenerate = expenses;
+
+    const exchange = await getExchangeRates();
+
+    const expense = {
+      id: idGenerate,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: exchange,
+    };
+    const AllExpense = Number(value) + sumExpense;
+    valueExpense(AllExpense);
+    addExpense(expense);
+  };
+
   handleChange = ({ target: { name, value } }) => {
     this.setState((state) => ({
       ...state,
@@ -25,6 +52,7 @@ class ExpenseForm extends Component {
     const {
       state: { value, description, method, currency, tag },
       handleChange,
+      madeExpense,
     } = this;
     return (
       <div className="expense-form">
@@ -80,12 +108,30 @@ class ExpenseForm extends Component {
           <option value="Transporte">Transporte</option>
           <option value="Saúde">Saúde</option>
         </select>
-        <button type="button">Adicionar Despesa</button>
+        <button type="button" onClick={ madeExpense }>
+          Adicionar Despesa
+        </button>
       </div>
     );
   }
 }
 
-// ExpenseForm.propTypes = {};
+ExpenseForm.propTypes = {
+  expenses: PropTypes.number.isRequired,
+  addExpense: PropTypes.func.isRequired,
+  getExchangeRates: PropTypes.func.isRequired,
+  valueExpense: PropTypes.func.isRequired,
+};
 
-export default ExpenseForm;
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses.length,
+  sumExpense: state.wallet.sumExpense,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addExpense: (data) => dispatch(addExpense(data)),
+  valueExpense: (data) => dispatch(sumExpense(data)),
+  getExchangeRates: () => dispatch(madeExpenseActThunk()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);

@@ -1,7 +1,11 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
-import { response as mockData, initialStateHeader, initialStateWithExpenses } from './mockData';
+import {
+  response as mockData,
+  initialStateHeader,
+  initialStateWithExpenses,
+} from './mockData';
 import App from '../App';
 import Wallet from '../pages/Wallet';
 import { renderWithRouterAndStore } from './testConfig';
@@ -86,7 +90,6 @@ describe('4 - Desenvolva um formulário para adicionar uma despesa contendo as s
     const currencyInput = await screen.findByTestId(CURRENCY_INPUT_TEST_ID);
 
     expect(currencyInput).toBeInTheDocument();
-
   });
 
   test('Um campo para selecionar qual método de pagamento será utilizado', async () => {
@@ -151,7 +154,9 @@ describe('4 - Desenvolva um formulário para adicionar uma despesa contendo as s
     ];
 
     await waitFor(() => {
-      expect(valueInput.value === 0 || valueInput.value === '0' || valueInput.value === '').toBe(true);
+      expect(
+        valueInput.value === 0 || valueInput.value === '0' || valueInput.value === '',
+      ).toBe(true);
     });
     expect(store.getState().wallet.expenses).toStrictEqual(expectedStateExpense);
 
@@ -185,7 +190,9 @@ describe('4 - Desenvolva um formulário para adicionar uma despesa contendo as s
     ];
 
     await waitFor(() => {
-      expect(valueInput.value === 0 || valueInput.value === '0' || valueInput.value === '').toBe(true);
+      expect(
+        valueInput.value === 0 || valueInput.value === '0' || valueInput.value === '',
+      ).toBe(true);
     });
     expect(store.getState().wallet.expenses).toStrictEqual(expectedStateExpense2);
 
@@ -205,8 +212,20 @@ describe('5 - Implemente a lógica para preencher as opções do campo "Moedas",
     const coinOptionsValues = coinOptions.map((coinOption) => coinOption.value);
 
     const expectedCoinOptions = [
-      'USD', 'CAD', 'EUR', 'GBP', 'ARS', 'BTC', 'LTC',
-      'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH', 'XRP',
+      'USD',
+      'CAD',
+      'EUR',
+      'GBP',
+      'ARS',
+      'BTC',
+      'LTC',
+      'JPY',
+      'CHF',
+      'AUD',
+      'CNY',
+      'ILS',
+      'ETH',
+      'XRP',
     ];
 
     expect(coinOptionsValues).toEqual(expectedCoinOptions);
@@ -225,12 +244,22 @@ describe('6 - Desenvolva uma tabela com os gastos contendo as seguintes caracter
 
     expect(screen.getByRole('columnheader', { name: 'Descrição' })).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: 'Tag' })).toBeInTheDocument();
-    expect(screen.getByRole('columnheader', { name: 'Método de pagamento' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('columnheader', { name: 'Método de pagamento' }),
+    ).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: 'Moeda' })).toBeInTheDocument();
-    expect(screen.getByRole('columnheader', { name: 'Câmbio utilizado' })).toBeInTheDocument();
-    expect(screen.getByRole('columnheader', { name: 'Valor convertido' })).toBeInTheDocument();
-    expect(screen.getByRole('columnheader', { name: 'Moeda de conversão' })).toBeInTheDocument();
-    expect(screen.getByRole('columnheader', { name: 'Editar/Excluir' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('columnheader', { name: 'Câmbio utilizado' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('columnheader', { name: 'Valor convertido' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('columnheader', { name: 'Moeda de conversão' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('columnheader', { name: 'Editar/Excluir' }),
+    ).toBeInTheDocument();
   });
 });
 
@@ -240,9 +269,13 @@ describe('7 - Implemente a lógica para que a tabela seja alimentada pelo estado
     renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     expect(screen.getAllByRole('cell', { name: 'Dez dólares' })[0]).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: 'Lazer' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: 'Cartão de crédito' })[0]).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: 'Cartão de crédito' })[0],
+    ).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: '10' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: 'Dólar Comercial' })[0]).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: 'Dólar Comercial' })[0],
+    ).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: '5.58' })[0]).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: '55.75' })[0]).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: 'Real' })[0]).toBeInTheDocument();
@@ -265,14 +298,14 @@ describe('8 - Crie um botão para deletar uma despesa da tabela contendo as segu
     renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     const lastButton = document.getElementsByTagName('tr')[1].lastChild.lastChild;
     expect(lastButton).toBeInTheDocument();
-    expect(lastButton.dataset.testid).toBe(BTN_DELETE_TEST_ID);    
+    expect(lastButton.dataset.testid).toBe(BTN_DELETE_TEST_ID);
   });
-  
+
   test('Ao ser clicado, o botão deleta a linha da tabela, alterando o estado global.', () => {
     const { store } = renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     const deleteBtn = screen.getAllByTestId(BTN_DELETE_TEST_ID)[0];
     const lineDeleted = document.getElementsByTagName('tr')[1];
-    
+
     fireEvent.click(deleteBtn);
     expect(lineDeleted).not.toBeInTheDocument();
 
@@ -298,17 +331,17 @@ describe('8 - Crie um botão para deletar uma despesa da tabela contendo as segu
 
     expect(store.getState().wallet.expenses).toStrictEqual(newExpenses);
   });
-  
+
   test('Ao clicar no botão para remover uma despesa, o valor correspondente deve ser subtraído e a despesa total deve ser atualizada no header', () => {
     const { store } = renderWithRouterAndStore(<Wallet />, '/carteira', initial);
-    
+
     const totalField = screen.getByTestId(TOTAL_FIELD_TEST_ID);
     expect(totalField).toContainHTML('187.12');
-    
+
     const deleteBtn = screen.getAllByTestId(BTN_DELETE_TEST_ID)[0];
-    
+
     fireEvent.click(deleteBtn);
-    
+
     const newExpenses = [
       {
         id: 1,
@@ -320,9 +353,9 @@ describe('8 - Crie um botão para deletar uma despesa da tabela contendo as segu
         exchangeRates: mockData,
       },
     ];
-    
+
     expect(store.getState().wallet.expenses).toStrictEqual(newExpenses);
-    
+
     expect(totalField).toContainHTML('131.37');
   });
 });
