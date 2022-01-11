@@ -10,7 +10,7 @@ export const INITIAL_STATE = {
 export const wallet = (state = INITIAL_STATE, action) => {
   const cases = {
     [ADD_EXPENSE]: { ...state, expenses: [...state.expenses, action.payload] },
-    [SUM_EXPENSE]: { ...state, sumExpense: action.payload },
+    [SUM_EXPENSE]: { ...state, sumExpense: action.payload + state.sumExpense },
     [GET_COIN]: { ...state, coins: action.payload },
   };
 

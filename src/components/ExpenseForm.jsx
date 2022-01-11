@@ -20,25 +20,19 @@ class ExpenseForm extends Component {
     const { getCoins } = this.props;
     getCoins();
   }
-  // async getCoinsState () {
-  //       const {
-  //     state: {  coins },
 
-  //   } = this;
-
-  //   const supportedCurrencies = await coins;
-  // }
+  clearInput = () => this.setState({
+    value: '',
+    description: '',
+    currency: '',
+    method: '',
+    tag: '',
+  });
 
   madeExpense = async () => {
     const {
       state: { value, description, currency, method, tag },
-      props: {
-        expenses,
-        sumExpense: sumExpenseProp,
-        addExpense: addExpenseProp,
-        getExchangeRates,
-        valueExpense,
-      },
+      props: { expenses, addExpense: addExpenseProp, getExchangeRates, valueExpense },
     } = this;
 
     let idGenerate = 0;
@@ -55,9 +49,11 @@ class ExpenseForm extends Component {
       tag,
       exchangeRates: exchange,
     };
-    const AllExpense = Number(value) + sumExpenseProp;
-    valueExpense(AllExpense);
+
+    const BRTExpense = Number(value) * exchange[currency].ask;
+    valueExpense(BRTExpense);
     addExpenseProp(expense);
+    this.clearInput();
   };
 
   handleChange = ({ target: { name, value } }) => {
@@ -69,7 +65,7 @@ class ExpenseForm extends Component {
 
   render() {
     const {
-      state: { value, description, tag },
+      state: { value, description, tag, currency },
       props: { coins },
       handleChange,
       madeExpense,
@@ -99,6 +95,7 @@ class ExpenseForm extends Component {
           aria-label="moeda"
           onChange={ handleChange }
           data-testid="currency-input"
+          value={ currency }
         >
           {coins.map((coin) => (
             <option name="moeda" value={ coin } data-testid={ coin } key={ coin }>
