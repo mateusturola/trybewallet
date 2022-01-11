@@ -19,7 +19,13 @@ class ExpenseForm extends Component {
   madeExpense = async () => {
     const {
       state: { value, description, currency, method, tag },
-      props: { expenses, sumExpense, addExpense, getExchangeRates, valueExpense },
+      props: {
+        expenses,
+        sumExpense: sumExpenseProp,
+        addExpense: addExpenseProp,
+        getExchangeRates,
+        valueExpense,
+      },
     } = this;
 
     let idGenerate = 0;
@@ -36,9 +42,9 @@ class ExpenseForm extends Component {
       tag,
       exchangeRates: exchange,
     };
-    const AllExpense = Number(value) + sumExpense;
+    const AllExpense = Number(value) + sumExpenseProp;
     valueExpense(AllExpense);
-    addExpense(expense);
+    addExpenseProp(expense);
   };
 
   handleChange = ({ target: { name, value } }) => {
@@ -121,11 +127,12 @@ ExpenseForm.propTypes = {
   addExpense: PropTypes.func.isRequired,
   getExchangeRates: PropTypes.func.isRequired,
   valueExpense: PropTypes.func.isRequired,
+  sumExpense: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses.length,
-  sumExpense: state.wallet.sumExpense,
+  sumExpense: state.wallet.sumExpense || 0,
 });
 
 const mapDispatchToProps = (dispatch) => ({
