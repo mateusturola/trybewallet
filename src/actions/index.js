@@ -4,6 +4,7 @@ import getExchangeRates from '../service/exchangeRates';
 export const USER_LOGIN = 'USER_LOGIN';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const SUM_EXPENSE = 'SUM_EXPENSE';
+export const GET_COIN = 'GET_COIN';
 
 export const userLoginAct = (payload) => ({
   type: USER_LOGIN,
@@ -20,7 +21,18 @@ export const sumExpense = (payload) => ({
   payload,
 });
 
+export const getCoin = (payload) => ({
+  type: GET_COIN,
+  payload,
+});
+
+// =========== THUNK ===========
+
 export const madeExpenseActThunk = () => () => {
   const exchange = getExchangeRates().then((data) => data);
   return exchange;
 };
+
+export const getCoinsFetch = () => (dispatch) => getExchangeRates()
+  .then((data) => Object.keys(data))
+  .then((keys) => dispatch(getCoin(keys)));

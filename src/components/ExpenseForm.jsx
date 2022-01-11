@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpense, madeExpenseActThunk, sumExpense } from '../actions';
+import { addExpense, getCoinsFetch, madeExpenseActThunk, sumExpense } from '../actions';
 
 class ExpenseForm extends Component {
   constructor() {
@@ -15,6 +15,19 @@ class ExpenseForm extends Component {
       tag: '',
     };
   }
+
+  componentDidMount() {
+    const { getCoins } = this.props;
+    getCoins();
+  }
+  // async getCoinsState () {
+  //       const {
+  //     state: {  coins },
+
+  //   } = this;
+
+  //   const supportedCurrencies = await coins;
+  // }
 
   madeExpense = async () => {
     const {
@@ -57,9 +70,11 @@ class ExpenseForm extends Component {
   render() {
     const {
       state: { value, description, method, currency, tag },
+      props: { coins },
       handleChange,
       madeExpense,
     } = this;
+
     return (
       <div className="expense-form">
         <input
@@ -87,8 +102,11 @@ class ExpenseForm extends Component {
           value={ currency }
           data-testid="currency-input"
         >
-          <option value="BRL">BRL</option>
-          <option value="BRL">BRL</option>
+          {coins.map((coin) => (
+            <option value={ coin } data-testid={ coin } key={ coin }>
+              {coin}
+            </option>
+          ))}
         </select>
         <select
           name="method"
@@ -124,21 +142,25 @@ class ExpenseForm extends Component {
 
 ExpenseForm.propTypes = {
   expenses: PropTypes.number.isRequired,
+  sumExpense: PropTypes.number.isRequired,
   addExpense: PropTypes.func.isRequired,
   getExchangeRates: PropTypes.func.isRequired,
   valueExpense: PropTypes.func.isRequired,
-  sumExpense: PropTypes.number.isRequired,
+  getCoins: PropTypes.func.isRequired,
+  coins: PropTypes.node.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses.length,
   sumExpense: state.wallet.sumExpense || 0,
+  coins: state.wallet.coins || ['BRT'],
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addExpense: (data) => dispatch(addExpense(data)),
   valueExpense: (data) => dispatch(sumExpense(data)),
   getExchangeRates: () => dispatch(madeExpenseActThunk()),
+  getCoins: () => dispatch(getCoinsFetch()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
