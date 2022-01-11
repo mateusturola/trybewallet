@@ -69,7 +69,7 @@ class ExpenseForm extends Component {
 
   render() {
     const {
-      state: { value, description, method, currency, tag },
+      state: { value, description, tag },
       props: { coins },
       handleChange,
       madeExpense,
