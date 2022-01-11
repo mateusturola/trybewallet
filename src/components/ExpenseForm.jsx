@@ -79,7 +79,6 @@ class ExpenseForm extends Component {
       <div className="expense-form">
         <input
           type="number"
-          placeholder="Valor da Despesa"
           name="value"
           value={ value }
           id="value-expense"
@@ -88,7 +87,6 @@ class ExpenseForm extends Component {
         />
         <input
           type="text"
-          placeholder="Descrição"
           name="description"
           value={ description }
           id="description-expense"
@@ -98,12 +96,12 @@ class ExpenseForm extends Component {
         <select
           name="currency"
           id="currency"
+          aria-label="moeda"
           onChange={ handleChange }
-          value={ currency }
           data-testid="currency-input"
         >
           {coins.map((coin) => (
-            <option value={ coin } data-testid={ coin } key={ coin }>
+            <option name="moeda" value={ coin } data-testid={ coin } key={ coin }>
               {coin}
             </option>
           ))}
@@ -112,7 +110,6 @@ class ExpenseForm extends Component {
           name="method"
           id="method"
           onChange={ handleChange }
-          value={ method }
           data-testid="method-input"
         >
           <option value="Dinheiro">Dinheiro</option>

@@ -34,5 +34,5 @@ export const madeExpenseActThunk = () => () => {
 };
 
 export const getCoinsFetch = () => (dispatch) => getExchangeRates()
-  .then((data) => Object.keys(data))
+  .then((data) => Object.keys(data).filter((c) => c !== 'USDT'))
   .then((keys) => dispatch(getCoin(keys)));
