@@ -136,7 +136,6 @@ class ExpenseForm extends Component {
 
 ExpenseForm.propTypes = {
   expenses: PropTypes.number.isRequired,
-  sumExpense: PropTypes.number.isRequired,
   addExpense: PropTypes.func.isRequired,
   getExchangeRates: PropTypes.func.isRequired,
   valueExpense: PropTypes.func.isRequired,
