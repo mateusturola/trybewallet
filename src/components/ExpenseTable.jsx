@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ExpenseLine from './ExpenseLine';
 
 class ExpenseTable extends Component {
   render() {
@@ -21,21 +22,7 @@ class ExpenseTable extends Component {
             <th>Moeda de conversão</th>
             <th>Editar/Excluir</th>
           </tr>
-          {expenses.map(
-            ({ id, description, tag, method, value, exchangeRates, currency }) => (
-              <tr key={ id }>
-                <td>{description}</td>
-                <td>{tag}</td>
-                <td>{method}</td>
-                <td>{value}</td>
-                <td>{exchangeRates[currency].name.split('/')[0]}</td>
-                <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
-                <td>{Number(exchangeRates[currency].ask * value).toFixed(2)}</td>
-                <td>Real</td>
-                <td>Editar/Excluir</td>
-              </tr>
-            ),
-          )}
+          <ExpenseLine expenses={ expenses } />
         </tbody>
       </table>
     );
