@@ -32,7 +32,7 @@ class ExpenseForm extends Component {
   madeExpense = async () => {
     const {
       state: { value, description, currency, method, tag },
-      props: { expenses, addExpense: addExpenseProp, getExchangeRates, valueExpense },
+      props: { expenses, addExpense: addExpenseProp, getExchangeRates },
     } = this;
 
     let idGenerate = 0;
@@ -50,8 +50,6 @@ class ExpenseForm extends Component {
       exchangeRates: exchange,
     };
 
-    const BRTExpense = Number(value) * exchange[currency].ask;
-    valueExpense(BRTExpense);
     addExpenseProp(expense);
     this.clearInput();
   };
@@ -138,7 +136,6 @@ ExpenseForm.propTypes = {
   expenses: PropTypes.number.isRequired,
   addExpense: PropTypes.func.isRequired,
   getExchangeRates: PropTypes.func.isRequired,
-  valueExpense: PropTypes.func.isRequired,
   getCoins: PropTypes.func.isRequired,
   coins: PropTypes.node.isRequired,
 };
@@ -151,7 +148,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addExpense: (data) => dispatch(addExpense(data)),
-  valueExpense: (data) => dispatch(sumExpense(data)),
   getExchangeRates: () => dispatch(madeExpenseActThunk()),
   getCoins: () => dispatch(getCoinsFetch()),
 });

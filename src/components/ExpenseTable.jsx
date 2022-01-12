@@ -30,7 +30,12 @@ class ExpenseTable extends Component {
 }
 
 ExpenseTable.propTypes = {
-  expenses: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 };
 
 const mapStateToProps = (state) => ({

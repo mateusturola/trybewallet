@@ -1,4 +1,4 @@
-import { ADD_EXPENSE, SUM_EXPENSE, GET_COIN } from '../actions';
+import { ADD_EXPENSE, GET_COIN, REMOVE_EXPENSE } from '../actions';
 
 export const INITIAL_STATE = {
   currencies: [],
@@ -10,8 +10,11 @@ export const INITIAL_STATE = {
 export const wallet = (state = INITIAL_STATE, action) => {
   const cases = {
     [ADD_EXPENSE]: { ...state, expenses: [...state.expenses, action.payload] },
-    [SUM_EXPENSE]: { ...state, sumExpense: action.payload + state.sumExpense },
     [GET_COIN]: { ...state, coins: action.payload },
+    [REMOVE_EXPENSE]: {
+      ...state,
+      expenses: state.expenses.filter((exp) => exp.id !== action.id),
+    },
   };
 
   const data = cases[action.type];
