@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router';
-import Login from './Login';
+import LoginForm from '../components/LoginForm';
 import Wallet from './Wallet';
 
 class Routes extends Component {
@@ -8,7 +8,7 @@ class Routes extends Component {
     return (
       <Switch>
         <Route exact path="/carteira" component={ Wallet } />
-        <Route exact path="/" component={ Login } />
+        <Route exact path="/" component={ LoginForm } />
       </Switch>
     );
   }

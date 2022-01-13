@@ -4,7 +4,12 @@ import Routes from './pages/Routes';
 
 class App extends Component {
   render() {
-    return <Routes />;
+    return (
+      <div className="container">
+        <Routes />
+        ;
+      </div>
+    );
   }
 }
 

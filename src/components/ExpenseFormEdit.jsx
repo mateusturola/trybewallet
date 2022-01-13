@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { editExpense, getCoinsFetch, saveEditExpense } from '../actions';
+import { editExpense, getCoinsFetch, saveEditExpense } from '../Redux/actions';
 
 class ExpenseFormEdit extends Component {
   constructor() {
