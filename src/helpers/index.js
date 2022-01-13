@@ -5,7 +5,6 @@ const addTotal = (expenses) => {
       expense.value * parseFloat(expense.exchangeRates[expense.currency].ask),
     );
   });
-
   return total;
 };
 export default addTotal;

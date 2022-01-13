@@ -24,8 +24,8 @@ describe('9 - Crie um botão para editar uma despesa da tabela contendo as segui
     renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     const btnEdit = document.getElementsByTagName('tr')[1].lastChild.firstChild;
     expect(btnEdit).toBeInTheDocument();
-    expect(btnEdit.dataset.testid).toBe(BTN_EDIT_TEST_ID);    
-});
+    expect(btnEdit.dataset.testid).toBe(BTN_EDIT_TEST_ID);
+  });
 
   test('Ao ser clicado, o botão habilita um formulário para editar a linha da tabela. Ao clicar em "Editar despesa" ela é atualizada e atualiza a soma de despesas no header.', async () => {
     const { store } = renderWithRouterAndStore(<Wallet />, '/carteira', initial);
@@ -51,14 +51,16 @@ describe('9 - Crie um botão para editar uma despesa da tabela contendo as segui
 
     await waitFor(() => {
       expect(
-        screen.getByRole('cell', { name: 'Cem dólares canadenses' })
+        screen.getByRole('cell', { name: 'Cem dólares canadenses' }),
       ).toBeInTheDocument();
     });
 
     expect(screen.getAllByRole('cell', { name: 'Trabalho' })[0]).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: 'Dinheiro' })[0]).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: '100' })[0]).toBeInTheDocument();
-    expect(screen.getAllByRole('cell', { name: 'Dólar Canadense' })[0]).toBeInTheDocument();
+    expect(
+      screen.getAllByRole('cell', { name: 'Dólar Canadense' })[0],
+    ).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: '4.20' })[0]).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: '420.41' })[0]).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: 'Real' })[0]).toBeInTheDocument();

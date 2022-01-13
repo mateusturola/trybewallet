@@ -1,61 +1,66 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addExpense, getCoinsFetch, madeExpenseActThunk } from '../actions';
+import { editExpense, getCoinsFetch, saveEditExpense } from '../actions';
 
-class ExpenseForm extends Component {
+class ExpenseFormEdit extends Component {
   constructor() {
     super();
 
     this.state = {
       value: '',
       description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'alimentação',
+      currency: '',
+      method: '',
+      tag: '',
     };
   }
 
   componentDidMount() {
-    const { getCoins } = this.props;
-    getCoins();
+    this.madeInitialState();
   }
 
-  clearInput = () => this.setState({
+  madeInitialState = () => {
+    const { getCoins, expenses, id } = this.props;
+    getCoins();
+    const expenseSpreed = [...expenses];
+    this.setState(() => ({
+      ...expenseSpreed[id],
+    }));
+  };
+
+  clearInput = () => this.setState(() => ({
     value: '',
     description: '',
-    currency: 'USD',
-    method: 'Dinheiro',
-    tag: 'Alimentação',
-  });
+    currency: '',
+    method: '',
+    tag: '',
+  }));
 
   madeExpense = async () => {
     const {
-      state: { value, description, currency, method, tag },
-      props: { expenses, addExpense: addExpenseProp, getExchangeRates },
+      state: { value, description, currency, method, tag, id, exchangeRates },
+      props: { addExpense: addExpenseProp },
     } = this;
 
-    let idGenerate = 0;
-    if (expenses > 0) idGenerate = expenses;
-
-    const exchange = await getExchangeRates();
-
-    const expense = {
-      id: idGenerate,
+    const exp = {
+      id,
       value,
       description,
       currency,
       method,
       tag,
-      exchangeRates: exchange,
+      exchangeRates,
     };
 
-    addExpenseProp(expense);
+    console.log(exp);
+
+    addExpenseProp(id, exp);
     this.clearInput();
   };
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState((state) => ({
+    this.setState(({ state }) => ({
       ...state,
       [name]: value,
     }));
@@ -125,31 +130,37 @@ class ExpenseForm extends Component {
           <option value="Saúde">Saúde</option>
         </select>
         <button type="button" onClick={ madeExpense }>
-          Adicionar Despesa
+          Editar despesa
         </button>
       </div>
     );
   }
 }
 
-ExpenseForm.propTypes = {
-  expenses: PropTypes.number.isRequired,
+ExpenseFormEdit.propTypes = {
+  expenses: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
   addExpense: PropTypes.func.isRequired,
-  getExchangeRates: PropTypes.func.isRequired,
   getCoins: PropTypes.func.isRequired,
   coins: PropTypes.node.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  expenses: state.wallet.expenses.length,
+  expenses: state.wallet.expenses,
   sumExpense: state.wallet.sumExpense || 0,
+  id: state.wallet.editId || 0,
   coins: state.wallet.coins || ['BRT'],
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addExpense: (data) => dispatch(addExpense(data)),
-  getExchangeRates: () => dispatch(madeExpenseActThunk()),
+  addExpense: (id, exp) => dispatch(saveEditExpense(id, exp)),
   getCoins: () => dispatch(getCoinsFetch()),
+  startEdit: () => dispatch(editExpense()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseFormEdit);

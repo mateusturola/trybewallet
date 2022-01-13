@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { removeExpense } from '../actions';
+import { editExpense, removeExpense } from '../actions';
 
 class ExpenseLine extends Component {
+  submitEdit = (id) => {
+    const { startEdit } = this.props;
+    startEdit(id);
+  };
+
   render() {
-    const { expenses, removeExpenseDPS } = this.props;
+    const { expenses, removeExpenseDPS, startEdit } = this.props;
     return (
       <>
         {expenses.map(
@@ -20,6 +25,13 @@ class ExpenseLine extends Component {
               <td>{Number(exchangeRates[currency].ask * value).toFixed(2)}</td>
               <td>Real</td>
               <td>
+                <button
+                  type="button"
+                  data-testid="edit-btn"
+                  onClick={ () => startEdit(id) }
+                >
+                  Editar
+                </button>
                 <button
                   type="button"
                   data-testid="delete-btn"
@@ -44,10 +56,12 @@ ExpenseLine.propTypes = {
     }),
   ).isRequired,
   removeExpenseDPS: PropTypes.func.isRequired,
+  startEdit: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   removeExpenseDPS: (id) => dispatch(removeExpense(id)),
+  startEdit: (id) => dispatch(editExpense(id)),
 });
 
 export default connect(null, mapDispatchToProps)(ExpenseLine);
