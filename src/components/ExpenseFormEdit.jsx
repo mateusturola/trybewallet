@@ -52,9 +52,6 @@ class ExpenseFormEdit extends Component {
       tag,
       exchangeRates,
     };
-
-    console.log(exp);
-
     addExpenseProp(id, exp);
     this.clearInput();
   };
