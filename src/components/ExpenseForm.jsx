@@ -143,7 +143,7 @@ ExpenseForm.propTypes = {
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses.length,
   sumExpense: state.wallet.sumExpense || 0,
-  coins: state.wallet.coins || ['BRT'],
+  coins: state.wallet.currencies || ['BRT'],
 });
 
 const mapDispatchToProps = (dispatch) => ({

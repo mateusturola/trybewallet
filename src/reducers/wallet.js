@@ -19,7 +19,7 @@ export const wallet = (state = INITIAL_STATE, action) => {
   const cases = {
     [ADD_EXPENSE]: { ...state, expenses: [...state.expenses, action.payload] },
     [EDT_EXPENSE]: { ...state, edit: true, editId: action.id },
-    [GET_COIN]: { ...state, coins: action.payload },
+    [GET_COIN]: { ...state, currencies: action.payload },
     [SAVE_EDIT]: {
       ...state,
       edit: false,

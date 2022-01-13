@@ -154,7 +154,7 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
   sumExpense: state.wallet.sumExpense || 0,
   id: state.wallet.editId || 0,
-  coins: state.wallet.coins || ['BRT'],
+  coins: state.wallet.currencies || ['BRT'],
 });
 
 const mapDispatchToProps = (dispatch) => ({
