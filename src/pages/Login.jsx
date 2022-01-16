@@ -5,8 +5,11 @@ import LoginForm from '../components/LoginForm';
 class Login extends Component {
   render() {
     return (
-      <div className="container">
-        <LoginForm />
+      <div className="row">
+        <div className="col s6">
+          <LoginForm />
+        </div>
+        <div className="col s6">image</div>
       </div>
     );
   }
