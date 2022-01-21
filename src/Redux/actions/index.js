@@ -1,4 +1,5 @@
 import getExchangeRates from '../../service/exchangeRates';
+import getGravatar from '../../service/getGravatar';
 
 // Coloque aqui suas actions
 export const USER_LOGIN = 'USER_LOGIN';
@@ -7,9 +8,15 @@ export const EDT_EXPENSE = 'EDT_EXPENSE';
 export const GET_COIN = 'GET_COIN';
 export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 export const SAVE_EDIT = 'SAVE_EDIT';
+export const PROFILE_PICTURE = 'PROFILE_PICTURE';
 
 export const userLoginAct = (payload) => ({
   type: USER_LOGIN,
+  payload,
+});
+
+export const SaveProfilePictureAct = (payload) => ({
+  type: PROFILE_PICTURE,
   payload,
 });
 
@@ -49,3 +56,5 @@ export const madeExpenseActThunk = () => () => {
 export const getCoinsFetch = () => (dispatch) => getExchangeRates()
   .then((data) => Object.keys(data).filter((c) => c !== 'USDT'))
   .then((keys) => dispatch(getCoin(keys)));
+
+export const getProfilePicture = () => (dispatch) => getGravatar().then((picture) => dispatch(SaveProfilePictureAct(picture)));
