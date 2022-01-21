@@ -5,7 +5,7 @@ import Routes from './pages/Routes';
 class App extends Component {
   render() {
     return (
-      <div className="bg-slate-300  min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="bg-slate-900 text-gray-200  min-h-screen flex justify-center">
         <Routes />
       </div>
     );

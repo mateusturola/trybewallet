@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { LockClosedIcon } from '@heroicons/react/solid';
-import { userLoginAct } from '../Redux/actions';
+import { getProfilePicture, userLoginAct } from '../Redux/actions';
 
 class LoginForm extends React.Component {
   constructor() {
@@ -16,7 +16,8 @@ class LoginForm extends React.Component {
   }
 
   onSubmitForm = (email) => {
-    const { history, userLogin } = this.props;
+    const { history, userLogin, getPicture } = this.props;
+    getPicture(email);
     userLogin(email);
     history.push('/carteira');
   };
@@ -58,9 +59,9 @@ class LoginForm extends React.Component {
             value={ email }
             onChange={ handleInput }
             data-testid="email-input"
-            className="appearance-none rounded-none relative
-            block w-full px-3 py-2 border border-gray-300 placeholder-gray-500
-            text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500
+            className="bg-slate-600 appearance-none rounded-none relative
+            block w-full px-3 py-2 border border-slate-700
+             rounded-t-md focus:outline-none focus:ring-indigo-500
             focus:border-indigo-500 focus:z-10 sm:text-sm"
           />
           <input
@@ -71,9 +72,9 @@ class LoginForm extends React.Component {
             value={ password }
             onChange={ handleInput }
             data-testid="password-input"
-            className="appearance-none rounded-none relative
-            block w-full px-3 py-2 border border-gray-300 placeholder-gray-500
-            text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500
+            className="bg-slate-600 appearance-none rounded-none relative
+            block w-full px-3 py-2 border border-slate-700
+             rounded-t-md focus:outline-none focus:ring-indigo-500
             focus:border-indigo-500 focus:z-10 sm:text-sm"
           />
         </div>
@@ -101,6 +102,7 @@ class LoginForm extends React.Component {
 
 LoginForm.propTypes = {
   userLogin: PropTypes.func.isRequired,
+  getPicture: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
@@ -108,6 +110,7 @@ LoginForm.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   userLogin: (state) => dispatch(userLoginAct(state)),
+  getPicture: (email) => dispatch(getProfilePicture(email)),
 });
 
 export default connect(null, mapDispatchToProps)(LoginForm);

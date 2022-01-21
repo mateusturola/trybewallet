@@ -10,8 +10,10 @@ class Wallet extends React.Component {
   render() {
     const { startEdit } = this.props;
     return (
-      <div>
-        <Header />
+      <div className="w-full mx-0">
+        <div className="w-full relative flex items-center justify-around bg-gray-800">
+          <Header />
+        </div>
         {startEdit ? <ExpenseFormEdit /> : <ExpenseForm />}
         <ExpenseTable />
       </div>
