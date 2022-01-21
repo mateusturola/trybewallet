@@ -19,7 +19,7 @@ class Login extends Component {
           <div className="flex justify-center">
             <div className="flex justify-center w-1/3">
               <img className="mx-auto h-20 w-auto" src={ carteira } alt="logo" />
-              <h1 className="mt-6 text-center text-3xl font-extrabold ">TribeWalet</h1>
+              <h1 className="mt-6 text-center text-3xl font-extrabold ">TribeWallet</h1>
             </div>
           </div>
           <div className="col s6">

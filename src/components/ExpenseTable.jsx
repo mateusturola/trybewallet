@@ -9,19 +9,23 @@ class ExpenseTable extends Component {
       props: { expenses },
     } = this;
     return (
-      <table>
-        <tbody>
+      <table
+        className="border-collapse w-full border border-slate-400
+      dark:border-slate-500 bg-white dark:bg-slate-800 text-sm shadow-sm "
+      >
+        <thead className="bg-slate-50 dark:bg-slate-700">
           <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
+            <th className="px-4 py-5 sm:px-6">Descrição</th>
+            <th className="px-4 py-5 sm:px-6">Tag</th>
+            <th className="px-4 py-5 sm:px-6">Método de pagamento</th>
+            <th className="px-4 py-5 sm:px-6">Valor</th>
+            <th className="px-4 py-5 sm:px-6">Moeda</th>
+            <th className="px-4 py-5 sm:px-6">Câmbio utilizado</th>
+            <th className="px-4 py-5 sm:px-6">Valor convertido</th>
+            <th className="px-4 py-5 sm:px-6">Editar/Excluir</th>
           </tr>
+        </thead>
+        <tbody>
           <ExpenseLine expenses={ expenses } />
         </tbody>
       </table>

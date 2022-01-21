@@ -5,6 +5,7 @@ import ExpenseForm from '../components/ExpenseForm';
 import ExpenseFormEdit from '../components/ExpenseFormEdit';
 import ExpenseTable from '../components/ExpenseTable';
 import Header from '../components/Header';
+import Example from '../temp';
 
 class Wallet extends React.Component {
   render() {
@@ -15,7 +16,10 @@ class Wallet extends React.Component {
           <Header />
         </div>
         {startEdit ? <ExpenseFormEdit /> : <ExpenseForm />}
-        <ExpenseTable />
+        <h2 className="mt-10 mb-10 text-center text-2xl font-extrabold">Despesas</h2>
+        <div className="overflow-x-auto ml-8 mr-8">
+          <ExpenseTable />
+        </div>
       </div>
     );
   }

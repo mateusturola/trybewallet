@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 import { editExpense, removeExpense } from '../Redux/actions';
 
 class ExpenseLine extends Component {
@@ -11,33 +12,37 @@ class ExpenseLine extends Component {
 
   render() {
     const { expenses, removeExpenseDPS, startEdit } = this.props;
+    const classLine = 'border  border-slate-700 p-4 text-slate-400 text-center';
     return (
       <>
         {expenses.map(
           ({ id, description, tag, method, value, exchangeRates, currency }) => (
-            <tr key={ id }>
-              <td>{description}</td>
-              <td>{tag}</td>
-              <td>{method}</td>
-              <td>{value}</td>
-              <td>{exchangeRates[currency].name.split('/')[0]}</td>
-              <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
-              <td>{Number(exchangeRates[currency].ask * value).toFixed(2)}</td>
-              <td>Real</td>
-              <td>
+            <tr key={ id } className="hover:dark:bg-slate-600">
+              <td className={ classLine }>{description}</td>
+              <td className={ classLine }>{tag}</td>
+              <td className={ classLine }>{method}</td>
+              <td className={ classLine }>{value}</td>
+              <td className={ classLine }>{exchangeRates[currency].name.split('/')[0]}</td>
+              <td className={ classLine }>
+                {`R$ ${Number(exchangeRates[currency].ask).toFixed(2)}`}
+              </td>
+              <td className={ classLine }>
+                {`R$ ${Number(exchangeRates[currency].ask * value).toFixed(2)}`}
+              </td>
+              <td className={ classLine }>
                 <button
                   type="button"
                   data-testid="edit-btn"
                   onClick={ () => startEdit(id) }
                 >
-                  Editar
+                  <PencilAltIcon className="h-5 w-5 text-red-500 hover:text-red-600 ml-1 mr-1" />
                 </button>
                 <button
                   type="button"
                   data-testid="delete-btn"
                   onClick={ () => removeExpenseDPS(id) }
                 >
-                  Excluir
+                  <TrashIcon className="h-5 w-5 text-indigo-500 hover:text-indigo-600 ml-1 mr-1" />
                 </button>
               </td>
             </tr>
