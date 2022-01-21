@@ -1,17 +1,42 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
+
+import carteira from '../img/carteira.png';
+
 import addTotal from '../helpers';
+import Example from '../temp';
 
 class Header extends Component {
   render() {
-    const { email, expense } = this.props;
+    const { email, expense, image } = this.props;
+    const totalValue = addTotal(expense);
+    const navigation = [`R$ ${totalValue.toFixed(2)}`, email];
     return (
-      <header>
-        <div data-testid="email-field">{email}</div>
+      <header className="flex h-20 w-full justify-around items-center">
+        {/* <div data-testid="email-field">{email}</div>
         <div data-testid="total-field">{addTotal(expense)}</div>
-        <div data-testid="header-currency-field">BRL</div>
+        <div data-testid="header-currency-field">BRL</div> */}
+
+        <div className="flex-shrink-0 flex items-center justify-center">
+          <img className="block lg:hidden h-10 w-auto" src={ carteira } alt="logo" />
+          <img className="hidden lg:block h-10 w-auto" alt="Workflow" src={ carteira } />
+          <h2 className="ml-2 text-center text-2xl font-extrabold ">TribeWalet</h2>
+        </div>
+        <div className="hidden sm:block sm:ml-6">
+          <div className="flex space-x-4">
+            {navigation.map((item) => (
+              <div
+                key={ item }
+                className="bg-gray-900 text-white text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                aria-current={ item.current ? 'page' : undefined }
+              >
+                {item}
+              </div>
+            ))}
+            <img className="h-10 w-10 rounded-full" src={ image } alt="" />
+          </div>
+        </div>
       </header>
     );
   }
@@ -29,6 +54,7 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  image: state.user.profilePicture,
   expense: state.wallet.expenses,
 });
 
