@@ -4,13 +4,14 @@ import {
   GET_COIN,
   REMOVE_EXPENSE,
   SAVE_EDIT,
+  SAVE_EXC,
 } from '../actions';
 
 export const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   sumExpense: 0,
-  coins: [],
+  exchanges: [],
   edit: false,
   editId: 0,
 };
@@ -20,6 +21,7 @@ export const wallet = (state = INITIAL_STATE, action) => {
     [ADD_EXPENSE]: { ...state, expenses: [...state.expenses, action.payload] },
     [EDT_EXPENSE]: { ...state, edit: true, editId: action.id },
     [GET_COIN]: { ...state, currencies: action.payload },
+    [SAVE_EXC]: { ...state, exchanges: action.payload },
     [SAVE_EDIT]: {
       ...state,
       edit: false,

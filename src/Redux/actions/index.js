@@ -9,6 +9,7 @@ export const GET_COIN = 'GET_COIN';
 export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 export const SAVE_EDIT = 'SAVE_EDIT';
 export const PROFILE_PICTURE = 'PROFILE_PICTURE';
+export const SAVE_EXC = 'SAVE_EXC';
 
 export const userLoginAct = (payload) => ({
   type: USER_LOGIN,
@@ -40,6 +41,10 @@ export const getCoin = (payload) => ({
   type: GET_COIN,
   payload,
 });
+export const saveExchanges = (payload) => ({
+  type: SAVE_EXC,
+  payload,
+});
 
 export const removeExpense = (id) => ({
   type: REMOVE_EXPENSE,
@@ -54,7 +59,12 @@ export const madeExpenseActThunk = () => () => {
 };
 
 export const getCoinsFetch = () => (dispatch) => getExchangeRates()
-  .then((data) => Object.keys(data).filter((c) => c !== 'USDT'))
-  .then((keys) => dispatch(getCoin(keys)));
+  .then((data) => Object.entries(data).filter((c) => c[0] !== 'USDT'))
+  .then((keys) => {
+    const coins = keys.map((c) => c[0]);
+    const exchange = keys.map((c) => c[1]);
+    dispatch(saveExchanges(exchange));
+    dispatch(getCoin(coins));
+  });
 
 export const getProfilePicture = () => (dispatch) => getGravatar().then((picture) => dispatch(SaveProfilePictureAct(picture)));

@@ -3,6 +3,7 @@ const getExchangeRates = () => {
   return fetch(url)
     .then((resolve) => resolve.json())
     .then((data) => data)
+
     .catch((error) => error);
 };
 
