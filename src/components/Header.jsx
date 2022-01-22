@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import carteira from '../img/carteira.png';
-import addTotal from '../helpers';
+import addTotal, { addTags } from '../helpers';
 
 class Header extends Component {
   render() {
     const { email, expense, image } = this.props;
     const totalValue = addTotal(expense);
     const navigation = [`R$ ${totalValue.toFixed(2)}`, email];
+    addTags(expense);
+
     return (
       <header className="flex h-20 w-full justify-around items-center">
         <div className="flex-shrink-0 flex items-center justify-center">

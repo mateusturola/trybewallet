@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addExpense, getCoinsFetch, madeExpenseActThunk } from '../Redux/actions';
+import { addTags } from '../helpers';
 
 class ExpenseForm extends Component {
   constructor() {
