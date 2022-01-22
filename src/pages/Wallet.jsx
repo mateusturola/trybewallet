@@ -8,7 +8,7 @@ import Header from '../components/Header';
 import Cambio from '../components/Cambio';
 import ChartTags from '../components/ChartTags';
 import CardPanel from '../components/CardPanel';
-import ModalMt from '../components/modal';
+import ExpenseAdd from '../components/ExpenseAdd';
 
 class Wallet extends React.Component {
   render() {
@@ -20,7 +20,7 @@ class Wallet extends React.Component {
         </div>
         <div className="flex justify-evenly">
           <CardPanel>
-            <ModalMt />
+            <ExpenseAdd />
           </CardPanel>
           <CardPanel>
             <Cambio />
@@ -30,7 +30,9 @@ class Wallet extends React.Component {
           </CardPanel>
         </div>
         {startEdit ? <ExpenseFormEdit /> : <ExpenseForm />}
-        <h2 className="mt-10 mb-10 text-center text-2xl font-extrabold">Despesas</h2>
+        <h2 className="mt-10 mb-10 text-center text-2xl font-extrabold">
+          Despesas
+        </h2>
         <div className="overflow-x-auto ml-8 mr-8">
           <ExpenseTable />
         </div>

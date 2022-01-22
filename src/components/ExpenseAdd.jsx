@@ -1,8 +1,14 @@
+import {
+  LockClosedIcon,
+  PlusCircleIcon,
+  XCircleIcon,
+} from '@heroicons/react/solid';
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
-import ExpenseForm from './ExpenseForm';
+import BtnAddExpenses from '../components/BtnAddExpenses';
+import ExpenseForm from '../components/ExpenseForm';
 
-class ModalMt extends Component {
+class ExpenseAdd extends Component {
   constructor() {
     super();
     this.state = {
@@ -22,11 +28,12 @@ class ModalMt extends Component {
   }
 
   render() {
+    const { showModal } = this.state;
     return (
       <div>
-        <button onClick={this.handleOpenModal}>Adicionar despesa</button>
+        <BtnAddExpenses onClickButton={this.handleOpenModal} />
         <ReactModal
-          isOpen={this.state.showModal}
+          isOpen={showModal}
           contentLabel="Adicionar despesa"
           style={{
             overlay: {
@@ -44,12 +51,14 @@ class ModalMt extends Component {
             },
           }}
         >
-          <button onClick={this.handleCloseModal}>X</button>
-          <ExpenseForm />
+          <button onClick={this.handleCloseModal}>
+            <XCircleIcon className="h-6 w-6 absolute top-5 right-5 text-indigo-500 hover:text-indigo-600 ml-1 mr-1 float-right" />
+          </button>
+          <ExpenseForm closeModal={this.handleCloseModal} />
         </ReactModal>
       </div>
     );
   }
 }
 
-export default ModalMt;
+export default ExpenseAdd;
