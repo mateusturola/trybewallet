@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { editExpense, getCoinsFetch, saveEditExpense } from '../Redux/actions';
+import TitleH2 from './TitleH2';
+import BtnAddExpenses from './BtnAddExpenses';
 
 class ExpenseFormEdit extends Component {
   constructor() {
@@ -29,18 +31,19 @@ class ExpenseFormEdit extends Component {
     }));
   };
 
-  clearInput = () => this.setState(() => ({
-    value: '',
-    description: '',
-    currency: '',
-    method: '',
-    tag: '',
-  }));
+  clearInput = () =>
+    this.setState(() => ({
+      value: '',
+      description: '',
+      currency: '',
+      method: '',
+      tag: '',
+    }));
 
   madeExpense = async () => {
     const {
       state: { value, description, currency, method, tag, id, exchangeRates },
-      props: { addExpense: addExpenseProp },
+      props: { addExpense: addExpenseProp, closeModal },
     } = this;
 
     const exp = {
@@ -54,6 +57,7 @@ class ExpenseFormEdit extends Component {
     };
     addExpenseProp(id, exp);
     this.clearInput();
+    closeModal();
   };
 
   handleChange = ({ target: { name, value } }) => {
@@ -72,42 +76,57 @@ class ExpenseFormEdit extends Component {
     } = this;
 
     return (
-      <div className="expense-form">
-        <input
-          type="number"
-          name="value"
-          value={ value }
-          id="value-expense"
-          onChange={ handleChange }
-          data-testid="value-input"
-        />
+      <div className="w-2/3 space-y-4">
+        <TitleH2>Adicionar Despesa</TitleH2>
+        <div className="mt-1 relative rounded-md shadow-sm">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span className="text-gray-500 sm:text-sm">$</span>
+          </div>
+          <input
+            type="text"
+            name="value"
+            value={value}
+            id="price"
+            onChange={handleChange}
+            data-testid="value-input"
+            className="bg-slate-700 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 py-2 sm:text-sm border-gray-300 rounded-md"
+            placeholder="0.00"
+          />
+          <div className="absolute inset-y-0 right-0 flex items-center">
+            <select
+              name="currency"
+              id="currency"
+              aria-label="moeda"
+              onChange={handleChange}
+              data-testid="currency-input"
+              value={currency}
+              id="currency"
+              className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+            >
+              {coins.map((coin) => (
+                <option name="moeda" value={coin} data-testid={coin} key={coin}>
+                  {coin}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
         <input
           type="text"
           name="description"
-          value={ description }
-          id="description-expense"
-          onChange={ handleChange }
-          data-testid="description-input"
+          value={description}
+          id="description"
+          onChange={handleChange}
+          data-testid="value-input"
+          className="bg-slate-700 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 py-2 sm:text-sm border-gray-300 rounded-md"
+          placeholder="Descrição"
         />
-        <select
-          name="currency"
-          id="currency"
-          aria-label="moeda"
-          onChange={ handleChange }
-          data-testid="currency-input"
-          value={ currency }
-        >
-          {coins.map((coin) => (
-            <option name="moeda" value={ coin } data-testid={ coin } key={ coin }>
-              {coin}
-            </option>
-          ))}
-        </select>
         <select
           name="method"
           id="method"
-          onChange={ handleChange }
+          onChange={handleChange}
           data-testid="method-input"
+          className="bg-slate-700 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 py-2 sm:text-sm border-gray-300 rounded-md"
         >
           <option value="Dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Cartão de crédito</option>
@@ -116,9 +135,10 @@ class ExpenseFormEdit extends Component {
         <select
           name="tag"
           id="tag"
-          onChange={ handleChange }
-          value={ tag }
+          onChange={handleChange}
+          value={tag}
           data-testid="tag-input"
+          className="bg-slate-700 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 py-2 sm:text-sm border-gray-300 rounded-md"
         >
           <option value="Alimentação">Alimentação</option>
           <option value="Lazer">Lazer</option>
@@ -126,9 +146,7 @@ class ExpenseFormEdit extends Component {
           <option value="Transporte">Transporte</option>
           <option value="Saúde">Saúde</option>
         </select>
-        <button type="button" onClick={ madeExpense }>
-          Editar despesa
-        </button>
+        <BtnAddExpenses onClickButton={madeExpense} />
       </div>
     );
   }
@@ -139,7 +157,7 @@ ExpenseFormEdit.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       value: PropTypes.string.isRequired,
-    }),
+    })
   ).isRequired,
   addExpense: PropTypes.func.isRequired,
   getCoins: PropTypes.func.isRequired,
