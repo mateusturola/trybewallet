@@ -40,6 +40,10 @@ class ExpenseAdd extends Component {
               backgroundColor: 'rgba(0, 0, 0, 0.83)',
             },
             content: {
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '30px',
               color: '#1e293b',
               background: 'rgb(30, 41, 59)',
               width: '50%',

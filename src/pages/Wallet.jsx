@@ -9,6 +9,8 @@ import Cambio from '../components/Cambio';
 import ChartTags from '../components/ChartTags';
 import CardPanel from '../components/CardPanel';
 import ExpenseAdd from '../components/ExpenseAdd';
+import UserInfos from '../components/UserInfos';
+import ChartMethod from '../components/ChartMethod';
 
 class Wallet extends React.Component {
   render() {
@@ -18,18 +20,18 @@ class Wallet extends React.Component {
         <div className="w-full relative flex items-center justify-around bg-gray-800">
           <Header />
         </div>
-        <div className="flex justify-evenly">
+        <div className="flex justify-evenly  my-10  ">
           <CardPanel>
-            <ExpenseAdd />
+            <UserInfos />
           </CardPanel>
           <CardPanel>
-            <Cambio />
+            <ChartTags />
           </CardPanel>
           <CardPanel>
-            {expenses.length === 0 ? <p>Adicione despesas</p> : <ChartTags />}
+            <ChartMethod />
           </CardPanel>
         </div>
-        {startEdit ? <ExpenseFormEdit /> : <ExpenseForm />}
+        {startEdit && <ExpenseFormEdit />}
         <h2 className="mt-10 mb-10 text-center text-2xl font-extrabold">
           Despesas
         </h2>

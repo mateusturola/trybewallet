@@ -35,3 +35,18 @@ export const addTags = (expenses) => {
   const array = Object.entries(categoriesSum);
   return array;
 };
+
+
+export const addMethod = (expenses) => {
+  if (!expenses) {
+    return [];
+  }
+
+  const MethodSum = {
+    Dinheiro: addTotal(expenses.filter((exp) => exp.method === 'Dinheiro')),
+    'Cartão de crédito': addTotal(expenses.filter((exp) => exp.method === 'Cartão de crédito')),
+    'Cartão de débito': addTotal(expenses.filter((exp) => exp.method === 'Cartão de débito')),
+  };
+  const array = Object.entries(MethodSum);
+  return array;
+};

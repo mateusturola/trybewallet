@@ -84,7 +84,7 @@ class ExpenseForm extends Component {
     } = this;
 
     return (
-      <div className="w-2/3">
+      <div className="w-2/3 space-y-4">
         <TitleH2>Adicionar Despesa</TitleH2>
         <div className="mt-1 relative rounded-md shadow-sm">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
