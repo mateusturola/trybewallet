@@ -17,7 +17,7 @@ class Wallet extends React.Component {
         <div className="w-full relative flex items-center justify-around bg-gray-800">
           <Header />
         </div>
-        <div className="flex justify-evenly sm:space-y-4  space-y-0 my-10 sm:flex-col lg:flex-row md:flex-row ml-8 mr-8">
+        <div className="flex justify-evenly sm:space-y-4  lg:space-y-0 my-10 sm:flex-col lg:flex-row md:flex-row ml-8 mr-8">
           <CardPanel>
             <UserInfos />
           </CardPanel>

@@ -6,7 +6,7 @@ class CardPanel extends Component {
     return (
       <div
         className="
-        z-0 lg:-ml-10 text-center col-span-3 bg-slate-800 rounded-xl shadow-lg xl:ml-0 max-h-80  h-80 sm:w-full w-1/4 
+        z-0 lg:-ml-10 text-center col-span-3 bg-slate-800 rounded-xl shadow-lg xl:ml-0 max-h-80  h-80 sm:w-full lg:w-1/4 
       overflow-x-auto p-5"
       >
         {children}
