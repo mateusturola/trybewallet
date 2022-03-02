@@ -1,26 +1,23 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import ExpenseForm from '../components/ExpenseForm';
-import ExpenseFormEdit from '../components/ExpenseFormEdit';
-import ExpenseTable from '../components/ExpenseTable';
-import Header from '../components/Header';
-import Cambio from '../components/Cambio';
-import ChartTags from '../components/ChartTags';
-import CardPanel from '../components/CardPanel';
-import ExpenseAdd from '../components/ExpenseAdd';
-import UserInfos from '../components/UserInfos';
-import ChartMethod from '../components/ChartMethod';
+import PropTypes from "prop-types";
+import React from "react";
+import { connect } from "react-redux";
+import CardPanel from "../components/CardPanel";
+import ChartMethod from "../components/ChartMethod";
+import ChartTags from "../components/ChartTags";
+import ExpenseFormEdit from "../components/ExpenseFormEdit";
+import ExpenseTable from "../components/ExpenseTable";
+import Header from "../components/Header";
+import UserInfos from "../components/UserInfos";
 
 class Wallet extends React.Component {
   render() {
-    const { startEdit, expenses } = this.props;
+    const { startEdit } = this.props;
     return (
       <div className="w-full mx-0">
         <div className="w-full relative flex items-center justify-around bg-gray-800">
           <Header />
         </div>
-        <div className="flex justify-evenly  my-10  ">
+        <div className="flex justify-evenly sm:space-y-4  space-y-0 my-10 sm:flex-col flex-row ml-8 mr-8">
           <CardPanel>
             <UserInfos />
           </CardPanel>
@@ -35,7 +32,7 @@ class Wallet extends React.Component {
         <h2 className="mt-10 mb-10 text-center text-2xl font-extrabold">
           Despesas
         </h2>
-        <div className="overflow-x-auto ml-8 mr-8">
+        <div className="overflow-x-auto ml-8 mb-10 mr-8">
           <ExpenseTable />
         </div>
       </div>

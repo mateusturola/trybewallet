@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import React from "react";
 
 const propTypes = {
   children: PropTypes.string.isRequired,
@@ -7,7 +7,7 @@ const propTypes = {
 
 const TitleH2 = ({ children }) => {
   return (
-    <h2 class="font-semibold uppercase tracking-wide text-center mb-2">
+    <h2 className="font-semibold uppercase tracking-wide text-center mb-2">
       {children}
     </h2>
   );

@@ -1,25 +1,24 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   addExpense,
   getCoinsFetch,
   madeExpenseActThunk,
-} from '../Redux/actions';
-import { addTags } from '../helpers';
-import BtnAddExpenses from './BtnAddExpenses';
-import TitleH2 from './TitleH2';
+} from "../Redux/actions";
+import BtnAddExpenses from "./BtnAddExpenses";
+import TitleH2 from "./TitleH2";
 
 class ExpenseForm extends Component {
   constructor() {
     super();
 
     this.state = {
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'alimentação',
+      value: "",
+      description: "",
+      currency: "USD",
+      method: "Dinheiro",
+      tag: "alimentação",
     };
   }
 
@@ -30,11 +29,11 @@ class ExpenseForm extends Component {
 
   clearInput = () =>
     this.setState({
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      value: "",
+      description: "",
+      currency: "USD",
+      method: "Dinheiro",
+      tag: "Alimentação",
     });
 
   madeExpense = async () => {
@@ -86,7 +85,7 @@ class ExpenseForm extends Component {
     return (
       <div className="w-2/3 space-y-4">
         <TitleH2>Adicionar Despesa</TitleH2>
-        <div className="mt-1 relative rounded-md shadow-sm">
+        <div className="mt-1 relative rounded-md shadow-sm w-full">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <span className="text-gray-500 sm:text-sm">$</span>
           </div>
@@ -171,7 +170,7 @@ ExpenseForm.propTypes = {
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses.length,
   sumExpense: state.wallet.sumExpense || 0,
-  coins: state.wallet.currencies || ['BRT'],
+  coins: state.wallet.currencies || ["BRT"],
 });
 
 const mapDispatchToProps = (dispatch) => ({
